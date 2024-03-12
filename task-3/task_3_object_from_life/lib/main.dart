@@ -1,72 +1,80 @@
-class Asset {
-  Asset({
-    required this.kind,
-    required this.name,
-    required this.ticker,
-    // required this.actualPrice
-  });
+import 'bond.dart';
 
-// Приватные поля
-  String kind;
+class Asset {
+  // Конструктор
+  Asset(
+      {required this.kind,
+      required this.name,
+      required this.ticker,
+      required this.actualPrice});
+
+  // Именнованный конструктор 1
+  Asset.share(
+      {required this.kind,
+      required this.name,
+      required this.ticker,
+      required this.actualPrice});
+
+  // Именнованный конструктор 2
+  Asset.fonds(
+      {required this.kind,
+      required this.name,
+      required this.ticker,
+      required this.actualPrice});
+
+  late final String kind;
   final String name;
   String ticker;
-  double? actualPrice;
-  // ignore: unused_field
-  double? _dividend;
+  final double actualPrice;
   final double _callPrice = 7000.0;
   final double _putPrice = 8000.0;
-
-// Константы для всех объектов этого класса
-  static double get commission => 0.01;
-
-  set dividend(double value) {
-    _dividend = value > 0 && value < 548 ? value : 0;
-  }
+  final now = DateTime.now();
 
 // Метод для покупки бумаги
   void buyShare() {
     if (_callPrice < 7001) {
-      print('Вы купили $kind $name за $_callPrice');
-      return;
+      print('Вы купили $kind $name за $_callPrice рублей в $now');
     }
   }
 
 // Метод для продажи бумаги
   void sellShare() {
     if (_putPrice >= 8000) {
-      print('Вы продали $kind $name за $_putPrice');
-      return;
+      print('Вы продали $kind $name за $_putPrice рублей в $now');
     }
   }
 }
 
-// Вложенный класс "Облигации"
-class Bonds {
+// Вложенный класс Crypto
+class Crypto {
   final String name;
-  String ticker;
-  double? price;
-  double coupon;
+  final String smartChain;
 
-  Bonds(this.name, this.ticker, this.coupon);
+  Crypto(this.name, this.smartChain);
+  void openEwallet() {
+    print("Ваши криптоактивы");
+  }
 }
 
-void buyBonds() {
-  print(Bonds);
-}
-
-// Создаем объект класса Asset с использованием различных конструкторов
 void main() {
-  // ignore: unused_local_variable
-  Bonds ofz = Bonds('ОФЗ', 'SU29007RMFS0', 78.63);
-  // ignore: unused_local_variable
-  Bonds corporativniy = Bonds('Whoosh', 'RU000A106HB4', 29.42);
-
-  final share_1 = Asset(kind: 'Акции', name: 'Лукойл', ticker: 'LKOH');
-  final share_2 = Asset(kind: 'Акции', name: "Магнит", ticker: 'MGNT');
-
-// Используем методы и свойства объекта
+  // Создаём 1 объект класса Asset
+  Asset share_1 = Asset.share(
+      kind: 'Акции', name: 'Лукойл', ticker: 'LKOH', actualPrice: 7650);
+  // Обращаемся к полю ticker
+  print(share_1.ticker);
+  // Обращаемся к методу buyShare
   share_1.buyShare();
-  share_1.sellShare();
 
+  // Создаём 2 объект класса Asset
+  Asset share_2 = Asset.share(
+      kind: 'Акции', name: "Магнит", ticker: 'MGNT', actualPrice: 7735);
+  // Обращаемся к полю name
+  print(share_2.name);
+  // Обращаемся к методу sellShare
   share_2.sellShare();
+
+  // Создаём объект скрытого класа Bond
+  Bond bond_ofz = Bond('ОФЗ', 'SU29007RMFS0');
+  // Обращаемся к методу buyBond скрытого класса Bond
+  bond_ofz.buyBond();
 }
