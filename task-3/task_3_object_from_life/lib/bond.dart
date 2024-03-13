@@ -1,19 +1,19 @@
-//import 'package:task_3_object_from_life/main.dart';
-
 class Bond {
-  final String _name; // приватное поле _name
-  final String _ticker; // приватное поле _ticker
-  final double _actualPrice = 1000; // приватное поле _actualPrice
-  final double _coupon = 36.6; // приватное поле _coupon
-  final month = DateTime.parse('2024-05-22');
+  // приватное поле _name (название облигации)
+  final String _name;
+  // приватное поле _ticker (тикер облигации)
+  final String _ticker;
+  // приватное поле _actualPrice (актульная цена облигации)
+  final double _actualPrice;
+  // приватное поле _coupon (выплачиваемая сумма 1 купона)
+  final double _coupon;
+  final date = DateTime.parse('2024-05-22');
 
-  Bond(this._name, this._ticker) {
-    _coupon;
-    _actualPrice;
-  }
+  Bond(this._name, this._ticker,
+      [this._actualPrice = 1000, this._coupon = 36.6]);
 
   void buyBond() {
     print(
-        'Вы купили $_name $_ticker за $_actualPrice с выплатой купона $month в размере $_coupon рублей за один купон');
+        'Вы купили $_name $_ticker за $_actualPrice рублей с выплатой купона $date в размере $_coupon рублей за один купон');
   }
 }
